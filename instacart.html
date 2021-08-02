@@ -48,14 +48,14 @@
 										<li><a href="https://github.com/pachoncarolina/Instacart-Basket-Analysis---Python" class="button primary">View the Project</a></li>
 									</ul>
 									<hr class="major" />
-									<h2>First step- CLEANING DATA</h2>
+									<h2>First step- Cleaning Data</h2>
 									<p>As a first step I needed to clean the datasets. As with any project, avoiding
 										this step might lead into weird or misleading results in your analysis. Python is
 										surprisingly good at doing this job and is incredibly fast. This step consisted in
 										cleaning 3 data sets (orders, customers and products) was straightforward and
 										it followed the classic methodology of ensuring data is in a consistent format,
 										there are no unexplained missing values, and there are no duplicated records.</p>
-									<h2>Second step- MERGING DATA</h2>
+									<h2>Second step- Merging Data</h2>
 									<p>This is where things start turning interesting. Once I merged the datasets, I was
 										left with a unified version of almost 30M rows and 30 columns! Quite a lot when
 										it is your first time trying to handle this massive amount of data. To give you a
@@ -63,16 +63,25 @@
 										the time and date of purchase, the product’s name, the department the product
 										belong to, and demographic information from customers (age, income, state,
 										family status, number of dependants).</p>
-									<h2>Third Step- SEGMENTING CUSTOMERS</h2>
+									<h2>Third Step- Segmenting Customers</h2>
 									<p>From this step on is where I understood why pandas (the library of Python I
 										used for this project) is a better option when dealing with big datasets. Normally,
 										in programing languages when trying to categorize something, you need
 										to evaluate logical conditions and iterate these conditions to every row in the
 										dataset. Doing this is the same as trying to apply a formula to numerous cells
-										in Excel and your computer screen freezes. Thanks to the magical loc function
+										in Excel and your computer screen freezes. Thanks to the magical <i>loc</i> function
 										I was able to segment Instacart customers into 15 different profiles based on
 										family status, age, income, and number of dependants.</p>
-									<h2>Final step- ANALYSING AND VISUALIZING</h2>
+										<h3>Example of Code to create the segmentation of single customers</h3>
+										<div class="col-12"></div>
+											<pre><code"># To create the customer profiling for single people, we included 4 subprofiles based on income and age.
+# The age and income numbers were determined by the approximate of median calculated before
+df_opc3.loc[(df_opc3['fam_status'] == 'single') & 
+(df_opc3['Age'] < 38) & (df_opc3['income'] < 85000),'profile_flag'] = 'Single young adult low income'</code></pre>
+										
+
+
+									<h2>Final step- Analysing and Visualizing</h2>
 									<p>This final stage of the process is where I extracted most of my future learnings
 										and practises from Python. Analysing the data is all about grouping variables
 										and applying a statistical criteria. For instance, finding out the average spending
@@ -86,8 +95,16 @@
 										is particularly important if you want to go deeper into making interesting visualizations.
 										At the end, I was lucky to make two graphs, and this was the furthest
 										the computational power of my machine could go.</p>
+									
+										<h4>Some of the visualizations</h4>
+										<div class="box alt">
+											<div class="row gtr-50 gtr-uniform">
+												<div class="col-4"><span class="image fit"><img src="images/scatter_averagespending_age.png" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/line_hourday_prices.png" alt="" /></span></div>
+												<div class="col-4"><span class="image fit"><img src="images/Instacart_spender.jpg" alt="" /></span></div>
+									
 									<hr class="major" />
-									<h2>RECOMMENDATIONS AND FINDINGS</h2>
+									<h2>Recommendations and Findings</h2>
 									
 									<p>Despite the challenges encountered and the ones that will remain as future tasks,
 										these were the four key outputs extracted from all the data:</p>
@@ -136,31 +153,7 @@
 									</header>
 									<ul>
 										<li><a href="index.html">Homepage</a></li>
-										<li><a href="generic.html">Generic</a></li>
-										<li><a href="elements.html">Elements</a></li>
-										<li>
-											<span class="opener">Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Etiam Dolore</a></li>
-										<li><a href="#">Adipiscing</a></li>
-										<li>
-											<span class="opener">Another Submenu</span>
-											<ul>
-												<li><a href="#">Lorem Dolor</a></li>
-												<li><a href="#">Ipsum Adipiscing</a></li>
-												<li><a href="#">Tempus Magna</a></li>
-												<li><a href="#">Feugiat Veroeros</a></li>
-											</ul>
-										</li>
-										<li><a href="#">Maximus Erat</a></li>
-										<li><a href="#">Sapien Mauris</a></li>
-										<li><a href="#">Amet Lacinia</a></li>
+																														
 									</ul>
 								</nav>
 
