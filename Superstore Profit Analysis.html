@@ -75,9 +75,9 @@
 												<div class="col-4"><span class="image fit"><img src="images/sales_category_region.png" alt="" /></span></div>
 												<div class="col-4"><span class="image fit"><img src="images/scatter_sales_profit.png" alt="" /></span></div>
 												
-										 <p>One thing to note was that sales concentrated around $54.48, 
-											 only 25% were higher than $209.9,
-											and on average sales were $230.
+										 <p>One thing to note is that sales concentrate around $54.48, 
+											 only 25% are higher than $209.9,
+											and on average sales are $230.
 											
 											Given these statistics,  three  groups were created
 											to further analyse profit: 
@@ -121,58 +121,62 @@
 									
 										 
 									<div class="row">
-										<p> The heatmap allowed us to see how correlated the numerical variables were.  </p>
+										<p> The following table has the percentage of profit and number of orders broken down by category and type of purchase.  </p>
+										<span class="image fit"><img src="images/pivottable_category_purchase_profit.png" alt="" style="width: 50% !important"/></span>
+										<p> This categorical chart evidence how strong is the share of big purchases, accounting for 45%.  </p>
+										<span class="image fit"><img src="images/cat_profit_category_puchase.png" alt="" style="width: 50% !important"/></span>
+										<p> A closer look into big purchases from technology shows that the subcategories of copiers 
+											account for 38% and only representing 3.7% of the total purchases of the category. The following map showed the profitability per state for this subcategory.  </p>
+										<span class="image fit"><img src="images/map_profit_technology.png" alt="" style="width: 70% !important"/></span>
+										<p> So as a final step and before proceeding with a regression analysis, a heatmap was created in order to understand the correlation of all numerical variables with profit. 
+											The results indicate that sales is the variable showing the highest affinity with profit.  </p>
 										 <span class="image fit"><img src="images/heatmap_correlations.png" alt="" style="width: 60% !important"/></span>
-
-									
-										 <span class="image fit"><img src="images/rockbuster_category.jpg" alt="" style="width: 50% !important"/></span>
-
 										<div class="col-6 col-12-small">
-											<h3>2. Data Querying</h3>
-											
-											</p>Subqueries</p> 
-											</p>Common Table Expressions</p>
-											</p>Views
-												</p>
+										
+												
 										</div>
-										<h3>Example of Queries - Which movies contributed the most/least to revenue gain? Which is the inventory for each movie? Which is the rental count for each movie?</h3>
-										<div class="col-12">
-											<pre><code">
-	SELECT f.title, COUNT(DISTINCT i.inventory_id) AS number_copies, 				
-	COUNT(r.rental_id) AS rental_count, 				
-	ROUND(SUM(p.amount),0) AS revenue				
-	FROM film f				
-	JOIN inventory i ON f.film_id = i.film_id				
-	JOIN rental r ON i.inventory_id = r.inventory_id				
-	JOIN payment p ON r.rental_id = p.rental_id				
-	GROUP BY f.film_id				
-	ORDER BY SUM(p.amount) DESC;</code></pre>
+										
 										</div>
 									</div>
 									
 									<hr />
-									<h2> Data Analysis and Visualization</h2>
-									<p>Analysis includes line chart to visualize evolution of sales, 
-										customer segmentation based on spending, and a 
-										cohort Analysis to measure lifetime interaction of customers throughout time
-										 </p>
-									<p>In this graph we can see the distribution of total sales by customer's purchase power that ranges from  $20 to $200.  We can also see the number of customers that are concentated in each range of purchase. 
-
-										Loyal customers who made purchases over$140 only account for 10% of the revenue(7% +1%+1%+1%), while the gross of the revenue is  among those customers whose spending was between  $80 and $120 (29% +29%+19%).
-					
-										Instead of rewarding the most loyal customers, Rockbuster should focus where most of its business condense (customers with a higher spending of $80), meaning the PARETO CUSTOMERS. </p>
-									<span class="image fit"><img src="images/rockbustersegmentation.jpg" alt="" style="width: 60% !important"/></span>
-
-									<p>In general, most of the categories share the same popularity except for the thriller genre. </p>
-									<span class="image fit"><img src="images/rockbuster_category.jpg" alt="" style="width: 50% !important"/></span>
-								
-									<hr class="major" />
-									<h2>Final Recommendations</h2>
-									<p>Rockbuster should redirect it's efforts towards the customers that represent most of its revenue, Pareto Customers. Just focusing on the best 10 customers won't make the business prosper or reach sales target easily. For this,  implementing  strategies of acquisition to expand the customer base will payoff better than encouraging loyal customers to rent more movies. </p>
-									<p>For Rockbuster to transition from rental-based to a suscription-based businesss it needs to define  a flat rate princing model. These transition will imply changing its business model, for instance closing physical stores and developing strong  capabilities to stream online content. All of these changes suggest an initial heavy investmen and a complete disrupt on how Rockbuster operates.  </p>
-									<hr class="major" />
-							
+									<h2> Linear Regression Analysis</h2>
+									<p>For running this model, sales was treated as the predictor variable of profit. Below in the graph we can see a plot of sales against profit for all the orders. The red line is trying to pass through the 
+										mayority of points, but it fails to do so as the points are very disperse and their distance to the line tends to grow apart. When this happens,    
+										it's a sign that the model is a poor choice as it doesn't explained much of the variance. </p>
+										<span class="image fit"><img src="images/regression_model_technology.png" alt="" style="width: 60% !important"/></span>
+									<p>Part of the reason of this behaviour can be explain by the extensive range between the minimum and maximum values within each of purchases groups. Let's see the outliers for all categories.  
+										<span class="image fit"><img src="images/outliers by category.png" alt="" style="width: 50% !important"/></span>																					<p>The model was rerun a second time by removing the extreme values and it did improve the results. however, let's bear in mind that the outliers are not innacurate data and because of this is better to explore an 
+												alternative option to approach profit.  
+												<span class="image fit"><img src="images/regression_noutliers_technology.png" alt="" style="width: 50% !important"/></span>
 									
+												<hr class="major" />
+												<h2>Other Approach: Cluster Analysis</h2>
+												<p>This time the approach will not just use the variable of sales, but all the other quantitative variables (quantity and discount) to see if we can uncover segments that share common traits. 
+													This segmentation is commonly known as cluster analysis approach - K-Means. 
+													Let's us remeber that when we were doing data visualization before, we grouping the data based on the type of purchase (big, medium and low) making partitions based on the mean and the median values of the variable sales.   </p>
+												The result were 4 clusters: 
+												<span class="image fit"><img src="images/cluster_logarithm.png" alt="" style="width: 80% !important"/></span>
+												<p>Below is a profile for each of the clusters: 
+													<span class="image fit"><img src="images/pivottable_cluster.png" alt="" style="width: 80% !important"/></span>
+												<p> In terms of profit, the best stats are in the pink cluster for an average of $3813 and only 10 observations. The sales seems to be the highest compare to the other clusters. 
+													There is no significant diference in quantity when compared to the other clusters. Other important characteristic of this group is that it it has the lowest discounts. 
+												<p>	Most of the orders are concentrated in the pale pink cluster where sales are inferior to $1000 and there is the least variability of profit ranging from -$1200 to less than $400 (this is evidenced in the scaterred plot). Important is to see that this
+													cluster has the least average profitability and sales, as well, as the lowest number of items per order, which makes sense since small purchases comprise only just a few items-3 items in average. 
+												 
+									<hr class="major" />
+									<h2>Comparison between the two approaches and Next Steps</h2>
+									<p>	When compared to the type of purchase approach, it is evident they both differ. Which bring us to our research question, which is the best approach to analyse profit? From the optic of type of purchase, the approach is to group data more evenly among groups based on central tendencies. 
+										The problem? It is hard to apply a linear regression model and perform more sophisticad analysis. On the other hand, the cluster analysis concentrates most 
+										of the data points on orders with the lowest profitability (pale purple cluster), guaranteeing that these points resemble more to each other and that it makes sense they belong to this group and not to other one.
+									<p>	Having more clusters allows to reduce the gap between the maximum and minumum values, therefore the possibility of having a lot of outliers is less. In the case  of  the technology category which accounts for 50.79% of the profit,  having four types of clusters  allows more room for analysis. Whereas, 
+										using the other approach for the technology category where   89.46%  are big purchases that range from $230 until $22,000 makes  it hard to make recommendations based in  such disperse group. S 
+								    </p>Next steps include to go to a deeper granularity. For example, for each cluster explore in every category the performance of each subcategory. Additionally, cross this against geographical information to know how regions and particular states contribute to profit. 
+
+									Below we show an example for category of technology, filtered by the pale purple cluster for the east region. 
+								</p>
+									<span class="image fit"><img src="images/superstorenextsteps.png" alt="" style="width: 80% !important"/></span>
+												
 								</section>
 
 						</div>
